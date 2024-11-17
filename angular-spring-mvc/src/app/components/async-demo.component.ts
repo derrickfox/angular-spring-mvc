@@ -2,32 +2,47 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HelloService } from '../services/hello.service';
 import { firstValueFrom } from 'rxjs';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-async-demo',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatCardModule, MatProgressSpinnerModule],
   template: `
-    <div class="async-demo">
-      <h2>Async Demo Component</h2>
-      <div *ngIf="loading">Loading...</div>
-      <div *ngIf="!loading && message">
-        <p>Message from backend: {{ message }}</p>
-      </div>
-      <div *ngIf="!loading && error">
-        <p class="error">Error: {{ error }}</p>
-      </div>
-    </div>
+    <mat-card class="async-demo">
+      <mat-card-header>
+        <mat-card-title>Async Demo Component</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngIf="loading" class="loading-spinner">
+          <mat-spinner diameter="50"></mat-spinner>
+        </div>
+        <div *ngIf="!loading && message">
+          <p>Message from backend: {{ message }}</p>
+        </div>
+        <div *ngIf="!loading && error">
+          <p class="error">Error: {{ error }}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
   `,
   styles: [`
     .async-demo {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #ffffff;
+    }
+    .loading-spinner {
+      display: flex;
+      justify-content: center;
       padding: 20px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      margin: 20px;
     }
     .error {
-      color: red;
+      color: #d32f2f;
+    }
+    mat-card-title {
+      color: #0078d4;
     }
   `]
 })
