@@ -8,6 +8,6 @@ public class HelloController {
 
     @GetMapping("/api/hello")
     public String sayHello() {
-        return "Hello from Spring MVC!";
+        return "Hello from Spring MVC hotsave!";
     }
 }
