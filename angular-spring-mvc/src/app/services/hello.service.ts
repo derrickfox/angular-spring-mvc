@@ -13,7 +13,7 @@ export class HelloService {
 
   getMessage(): Observable<string> {
     return this.http.get(this.apiUrl, { responseType: 'text' }).pipe(
-      delay(3000)
+      delay(1000)
     );
   }
 }
