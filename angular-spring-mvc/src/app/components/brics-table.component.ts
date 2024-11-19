@@ -56,10 +56,21 @@ interface TableData {
       border-radius: 4px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
+				
+				:host ::ng-deep th {
+      text-align: left;
+    }
   `]
 })
 export class BricsTableComponent implements AfterViewInit, OnDestroy, OnInit {
-	@Input() data: TableData[] = [];
+	@Input() data: TableData[] = [
+    { id: 1, name: 'Tiger Nixon', position: 'System Architect', office: 'Edinburgh', age: 61, startDate: '2011/04/25' },
+    { id: 2, name: 'Garrett Winters', position: 'Accountant', office: 'Tokyo', age: 63, startDate: '2011/07/25' },
+    { id: 3, name: 'Ashton Cox', position: 'Junior Technical Author', office: 'San Francisco', age: 66, startDate: '2009/01/12' },
+    { id: 4, name: 'Cedric Kelly', position: 'Senior Javascript Developer', office: 'Edinburgh', age: 22, startDate: '2012/03/29' },
+    { id: 5, name: 'Airi Satou', position: 'Accountant', office: 'Tokyo', age: 33, startDate: '2008/11/28' }
+    // Add more rows as needed
+  ];
 	
   private dataTable: any;
 
