@@ -1,17 +1,23 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AsyncDemoComponent } from './components/async-demo.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { BricsHeaderComponent } from './components/brics-header.component';
+import { BricsLeftNavComponent } from './components/brics-left-nav.component';
+import { BricsTableComponent } from './components/brics-table.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, AsyncDemoComponent, MatToolbarModule],
+  imports: [
+    CommonModule, 
+    BricsHeaderComponent,
+    BricsLeftNavComponent,
+    BricsTableComponent
+  ],
   template: `
-    <mat-toolbar color="primary">
-      <span>Angular Spring MVC Demo</span>
-    </mat-toolbar>
-    <app-async-demo></app-async-demo>
+    <app-brics-header></app-brics-header>
+    <app-brics-left-nav>
+      <app-brics-table></app-brics-table>
+    </app-brics-left-nav>
   `,
   styles: [`
     :host {

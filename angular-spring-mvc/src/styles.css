@@ -8,3 +8,30 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
   background: #0078d4;  /* Azure blue primary color */
   color: white;
 }
+
+/* DataTables Custom Styling */
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter {
+  margin-bottom: 15px;
+}
+
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+  margin-top: 15px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  background: #0078d4 !important;
+  color: white !important;
+  border: none;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  background: #106ebe !important;
+  color: white !important;
+  border: none;
+}
+
+.dt-search {
+  float: right;
+}
