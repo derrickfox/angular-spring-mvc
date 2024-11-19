@@ -3,11 +3,25 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-brics-left-nav',
   standalone: true,
   imports: [MatSidenavModule, MatListModule, MatIconModule, CommonModule],
+  animations: [
+    trigger('expandCollapse', [
+      state('void', style({
+        height: '0',
+        opacity: '0'
+      })),
+      state('*', style({
+        height: '*',
+        opacity: '1'
+      })),
+      transition('void <=> *', animate('200ms ease-in-out'))
+    ])
+  ],
   template: `
     <mat-sidenav-container class="sidenav-container">
       <mat-sidenav mode="side" opened class="sidenav">
@@ -25,7 +39,7 @@ import { CommonModule } from '@angular/common';
               {{ expandedSection === 'dashboard' ? 'expand_more' : 'chevron_right' }}
             </mat-icon>
           </div>
-          <div *ngIf="expandedSection === 'dashboard'" class="sub-level">
+          <div *ngIf="expandedSection === 'dashboard'" @expandCollapse class="sub-level">
             <a mat-list-item>
               <span matListItemTitle>List Posts</span>
             </a>
@@ -39,7 +53,7 @@ import { CommonModule } from '@angular/common';
               {{ expandedSection === 'settings' ? 'expand_more' : 'chevron_right' }}
             </mat-icon>
           </div>
-          <div *ngIf="expandedSection === 'settings'" class="sub-level">
+          <div *ngIf="expandedSection === 'settings'" @expandCollapse class="sub-level">
             <a mat-list-item>
               <span matListItemTitle>Profile</span>
             </a>
@@ -70,6 +84,17 @@ import { CommonModule } from '@angular/common';
       color: #666;
     }
 
+    .caret-icon {
+      position: absolute;
+      right: 16px;
+      color: #666;
+      transition: transform 200ms ease-in-out;
+    }
+
+    .caret-icon.expanded {
+      transform: rotate(0deg);
+    }
+
     .nav-item {
       position: relative;
       display: flex;
@@ -84,14 +109,9 @@ import { CommonModule } from '@angular/common';
       flex: 1;
     }
 
-    .caret-icon {
-      position: absolute;
-      right: 16px;
-      color: #666;
-    }
-
     .sub-level {
       padding-left: 32px;
+      overflow: hidden;
     }
   `]
 })
