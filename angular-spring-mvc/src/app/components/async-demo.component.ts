@@ -30,7 +30,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   styles: [`
     .async-demo {
       max-width: 600px;
-      margin: 20px auto;
+      margin: 20px;
       background-color: #ffffff;
     }
     .loading-spinner {
