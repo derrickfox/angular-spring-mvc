@@ -2,11 +2,26 @@ import { Component } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-brics-left-nav',
   standalone: true,
-  imports: [MatSidenavModule, MatListModule, MatIconModule],
+  imports: [MatSidenavModule, MatListModule, MatIconModule, CommonModule],
+  animations: [
+    trigger('expandCollapse', [
+      state('void', style({
+        height: '0',
+        opacity: '0'
+      })),
+      state('*', style({
+        height: '*',
+        opacity: '1'
+      })),
+      transition('void <=> *', animate('200ms ease-in-out'))
+    ])
+  ],
   template: `
     <mat-sidenav-container class="sidenav-container">
       <mat-sidenav mode="side" opened class="sidenav">
@@ -15,14 +30,34 @@ import { MatIconModule } from '@angular/material/icon';
             <mat-icon matListItemIcon>home</mat-icon>
             <span matListItemTitle>Home</span>
           </a>
-          <a mat-list-item>
-            <mat-icon matListItemIcon>dashboard</mat-icon>
-            <span matListItemTitle>Dashboard</span>
-          </a>
-          <a mat-list-item>
-            <mat-icon matListItemIcon>settings</mat-icon>
-            <span matListItemTitle>Settings</span>
-          </a>
+          <div class="nav-item" [class.active]="expandedSection === 'dashboard'">
+            <a mat-list-item (click)="toggle('dashboard')">
+              <mat-icon matListItemIcon>dashboard</mat-icon>
+              <span matListItemTitle>Dashboard</span>
+            </a>
+            <mat-icon class="caret-icon" [ngClass]="{'expanded': expandedSection === 'dashboard'}">
+              {{ expandedSection === 'dashboard' ? 'expand_more' : 'chevron_right' }}
+            </mat-icon>
+          </div>
+          <div *ngIf="expandedSection === 'dashboard'" @expandCollapse class="sub-level">
+            <a mat-list-item>
+              <span matListItemTitle>List Posts</span>
+            </a>
+          </div>
+          <div class="nav-item" [class.active]="expandedSection === 'settings'">
+            <a mat-list-item (click)="toggle('settings')">
+              <mat-icon matListItemIcon>settings</mat-icon>
+              <span matListItemTitle>Settings</span>
+            </a>
+            <mat-icon class="caret-icon" [ngClass]="{'expanded': expandedSection === 'settings'}">
+              {{ expandedSection === 'settings' ? 'expand_more' : 'chevron_right' }}
+            </mat-icon>
+          </div>
+          <div *ngIf="expandedSection === 'settings'" @expandCollapse class="sub-level">
+            <a mat-list-item>
+              <span matListItemTitle>Profile</span>
+            </a>
+          </div>
         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content>
@@ -32,7 +67,7 @@ import { MatIconModule } from '@angular/material/icon';
   `,
   styles: [`
     .sidenav-container {
-      height: calc(100vh - 64px); /* Subtract the height of the toolbar */
+      height: calc(100vh - 64px);
     }
     
     .sidenav {
@@ -48,6 +83,42 @@ import { MatIconModule } from '@angular/material/icon';
       margin-right: 8px;
       color: #666;
     }
+
+    .caret-icon {
+      position: absolute;
+      right: 16px;
+      color: #666;
+      transition: transform 200ms ease-in-out;
+    }
+
+    .caret-icon.expanded {
+      transform: rotate(0deg);
+    }
+
+    .nav-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-item.active {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    .nav-item a[mat-list-item] {
+      flex: 1;
+    }
+
+    .sub-level {
+      padding-left: 32px;
+      overflow: hidden;
+    }
   `]
 })
-export class BricsLeftNavComponent {}
+export class BricsLeftNavComponent {
+  expandedSection: string | null = 'dashboard';
+
+  toggle(section: string): void {
+    this.expandedSection = this.expandedSection === section ? null : section;
+  }
+}
