@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BricsExpansionPanelComponent } from '../components/brics-expansion-panel.component';
+import { BricsExpansionPanelComponent } from '../../components/brics-expansion-panel.component';
 
 @Component({
   selector: 'app-welcome-page',
@@ -34,17 +34,20 @@ export class WelcomePageComponent {
     {
       title: 'Panel 1',
       content: 'Test content for Panel 1',
-      isExpanded: true
+      isExpanded: true,
+      showCaret: true
     },
     {
       title: 'Panel 2',
       content: 'Test content for Panel 2',
-      isExpanded: false
+      isExpanded: false,
+      showCaret: true
     },
     {
       title: 'Panel 3',
       content: 'Test content for Panel 3',
-      isExpanded: false
+      isExpanded: false,
+      showCaret: true
     }
   ];
 }
