@@ -6,7 +6,7 @@ export const TEST_POSTS: Post[] = [
     new Post(
         1,
         "Welcome to the Forum",
-        "General",
+        1,
         TEST_USERS[0],
         "Hello everyone! This is our new forum. Feel free to introduce yourself!",
         new Date("2024-03-15"),
@@ -16,7 +16,7 @@ export const TEST_POSTS: Post[] = [
     new Post(
         2,
         "Programming Tips & Tricks",
-        "Programming",
+        2,
         TEST_USERS[1],
         "Share your favorite programming tips and tricks here!",
         new Date("2024-03-14"),
@@ -26,7 +26,7 @@ export const TEST_POSTS: Post[] = [
     new Post(
         3,
         "Weekly Discussion Thread",
-        "General",
+        1,
         TEST_USERS[2],
         "What's everyone working on this week?",
         new Date(),
@@ -35,7 +35,7 @@ export const TEST_POSTS: Post[] = [
     new Post(
         4,
         "Angular Best Practices",
-        "Programming",
+        2,
         TEST_USERS[3],
         "Let's discuss Angular development best practices and patterns.",
         new Date("2024-03-13"),
@@ -45,7 +45,7 @@ export const TEST_POSTS: Post[] = [
     new Post(
         5,
         "Spring Boot Tips",
-        "Programming",
+        2,
         TEST_USERS[4],
         "Share your Spring Boot knowledge and experiences.",
         new Date("2024-03-12"),

@@ -4,7 +4,7 @@ export class Post {
     constructor(
         public id: number,
         public title: string,
-        public topic: string,
+        public topicId: number,
         public creator: ForumUser,
         public content: string,
         public dateCreated: Date = new Date(),
