@@ -15,27 +15,41 @@ import { Post } from '../../models/forum/post';
       <div mat-subheader>Forum Posts</div>
       
       <mat-list-item *ngFor="let post of posts">
-        <div class="post-container">
-          <div class="post-title">
-            <a href="#">{{ post.title }}</a>
+        <div class="post-wrapper">
+          <div class="post-container">
+            <div class="post-title">
+              <a href="#">{{ post.title }}</a>
+            </div>
+            <div class="post-topic">{{ getTopicName(post.topicId) }}</div>
+            <div class="post-creator">{{ post.creator?.username }}</div>
+            <div class="post-date">Posted on {{ post.dateCreated | date:'yyyy-MM-dd' }}</div>
+            <div class="post-replies">{{ post.numberOfReplies }} replies</div>
+            <div class="post-last-reply">Last reply on {{ post.lastReplyDate | date:'yyyy-MM-dd' }}</div>
           </div>
-          <div class="post-topic">{{ getTopicName(post.topicId) }}</div>
-          <div class="post-creator">{{ post.creator?.username || 'Unknown' }}</div>
-          <div class="post-date">Posted on {{ post.dateCreated | date:'yyyy-MM-dd' }}</div>
-          <div class="post-replies">{{ post.numberOfReplies }} replies</div>
-          <div class="post-last-reply">Last reply on {{ post.lastReplyDate | date:'yyyy-MM-dd' }}</div>
+          <div class="post-content">
+            {{ post.content }}
+          </div>
         </div>
         <mat-divider></mat-divider>
       </mat-list-item>
     </mat-list>
   `,
   styles: [`
+    .post-wrapper {
+      width: 100%;
+      padding: 16px 0;
+    }
     .post-container {
       display: grid;
       grid-template-columns: 3fr 1fr 1fr 1.5fr 1fr 1.5fr;
       gap: 16px;
       width: 100%;
       padding: 8px 0;
+    }
+    .post-content {
+      padding: 16px 0;
+      color: #666;
+      grid-column: 1 / -1;
     }
     .post-title a {
       color: #2e7d32;
@@ -49,7 +63,9 @@ import { Post } from '../../models/forum/post';
       color: #666;
     }
     mat-list-item {
-      margin-bottom: 8px;
+      margin-bottom: 16px;
+      height: auto !important;
+      min-height: 120px !important;
     }
   `]
 })
