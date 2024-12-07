@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -7,6 +7,7 @@ import { TEST_POSTS } from '../../test-models/forum/posts';
 import { Post } from '../../models/forum/post';
 import { BricsForumTopicSelectorComponent } from '../../components/forum/brics-forum-topic-selector.component';
 import { FormsModule } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-of-forum-posts',
@@ -28,11 +29,11 @@ import { FormsModule } from '@angular/forms';
     <mat-list>
       <div mat-subheader>Forum Posts</div>
       
-      <mat-list-item *ngFor="let post of filteredPosts">
+      <mat-list-item *ngFor="let post of filteredPosts" (click)="viewPost(post)">
         <div class="post-wrapper">
           <div class="post-container">
             <div class="post-title">
-              <a href="#">{{ post.title }}</a>
+              <a (click)="$event.preventDefault()">{{ post.title }}</a>
             </div>
             <div class="post-topic">{{ getTopicName(post.topicId) }}</div>
             <div class="post-creator">{{ post.creator?.username }}</div>
@@ -91,7 +92,7 @@ import { FormsModule } from '@angular/forms';
     }
   `]
 })
-export class ListOfForumPostsComponent {
+export class ListOfForumPostsComponent implements OnInit {
   posts: Post[] = TEST_POSTS;
   selectedTopicId: number = -1;
   filteredPosts: Post[] = this.posts;
@@ -113,7 +114,29 @@ export class ListOfForumPostsComponent {
     { id: 14, name: 'ProFoRMS' }
   ];
 
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      if (params['topic']) {
+        this.selectedTopicId = +params['topic'];
+        this.filterByTopic(this.selectedTopicId);
+      }
+    });
+  }
+
   filterByTopic(topicId: number) {
+    this.selectedTopicId = topicId;
+    if (topicId !== -1) {
+      sessionStorage.setItem('userSelectedTopic', 'true');
+      sessionStorage.setItem('lastSelectedTopic', topicId.toString());
+    } else {
+      sessionStorage.removeItem('userSelectedTopic');
+      sessionStorage.removeItem('lastSelectedTopic');
+    }
     this.filteredPosts = topicId === -1 
       ? this.posts 
       : this.posts.filter(post => post.topicId === topicId);
@@ -122,5 +145,13 @@ export class ListOfForumPostsComponent {
   getTopicName(topicId: number): string {
     const topic = this.topics.find(t => t.id === topicId);
     return topic?.name || 'GENERAL DISCUSSION';
+  }
+
+  viewPost(post: Post) {
+    if (this.selectedTopicId && this.selectedTopicId !== -1) {
+      sessionStorage.setItem('userSelectedTopic', 'true');
+      sessionStorage.setItem('lastSelectedTopic', this.selectedTopicId.toString());
+    }
+    this.router.navigate(['/forum/post', post.id]);
   }
 }
