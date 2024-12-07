@@ -7,7 +7,7 @@ import { TEST_POSTS } from '../../test-models/forum/posts';
 import { Post } from '../../models/forum/post';
 import { BricsForumTopicSelectorComponent } from '../../components/forum/brics-forum-topic-selector.component';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-of-forum-posts',
@@ -114,7 +114,17 @@ export class ListOfForumPostsComponent {
     { id: 14, name: 'ProFoRMS' }
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.route.queryParams.subscribe(params => {
+      if (params['topic']) {
+        this.selectedTopicId = Number(params['topic']);
+        this.filterByTopic(this.selectedTopicId);
+      }
+    });
+  }
 
   filterByTopic(topicId: number) {
     this.filteredPosts = topicId === -1 

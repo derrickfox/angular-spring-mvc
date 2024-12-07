@@ -5,6 +5,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ActivatedRoute } from '@angular/router';
 import { Post } from '../../models/forum/post';
 import { TEST_POSTS } from '../../test-models/forum/posts';
+import { BricsBackToListButtonComponent } from '../../components/brics-back-to-list-button.component';
 
 @Component({
   selector: 'app-view-forum-post',
@@ -13,8 +14,11 @@ import { TEST_POSTS } from '../../test-models/forum/posts';
     CommonModule,
     MatCardModule,
     MatDividerModule,
+    BricsBackToListButtonComponent
   ],
   template: `
+    <app-brics-back-to-list-button [topicId]="post?.topicId"></app-brics-back-to-list-button>
+    
     <mat-card class="post-card">
       <mat-card-header>
         <mat-card-title>{{ post?.title }}</mat-card-title>
@@ -37,6 +41,10 @@ import { TEST_POSTS } from '../../test-models/forum/posts';
     </mat-card>
   `,
   styles: [`
+    :host {
+      position: relative;
+      display: block;
+    }
     .post-card {
       max-width: 800px;
       margin: 20px auto;
