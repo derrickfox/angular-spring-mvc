@@ -8,6 +8,7 @@ import { Post } from '../../models/forum/post';
 import { BricsForumTopicSelectorComponent } from '../../components/forum/brics-forum-topic-selector.component';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-list-of-forum-posts',
@@ -18,12 +19,21 @@ import { Router, ActivatedRoute } from '@angular/router';
     MatIconModule,
     MatDividerModule,
     BricsForumTopicSelectorComponent,
-    FormsModule
+    FormsModule,
+    MatInputModule
   ],
   template: `
     <div class="filter-container">
       <app-brics-forum-topic-selector (ngModelChange)="filterByTopic($event)" [(ngModel)]="selectedTopicId">
       </app-brics-forum-topic-selector>
+
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput 
+               placeholder="Search posts..." 
+               [(ngModel)]="searchTerm"
+               (ngModelChange)="filterPosts()">
+      </mat-form-field>
     </div>
 
     <mat-list>
@@ -89,6 +99,17 @@ import { Router, ActivatedRoute } from '@angular/router';
       padding: 16px;
       display: flex;
       align-items: flex-start;
+      gap: 16px;
+    }
+    
+    .search-field {
+      flex: 1;
+      max-width: 400px;
+    }
+    
+    mat-icon {
+      color: #666;
+      margin-right: 8px;
     }
   `]
 })
@@ -113,6 +134,8 @@ export class ListOfForumPostsComponent implements OnInit {
     { id: 13, name: 'Meta Study' },
     { id: 14, name: 'ProFoRMS' }
   ];
+  searchTerm: string = '';
+  private allPosts: Post[] = [];
 
   constructor(
     private router: Router,
@@ -120,12 +143,31 @@ export class ListOfForumPostsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.allPosts = this.posts;
     this.route.queryParams.subscribe(params => {
       if (params['topic']) {
         this.selectedTopicId = +params['topic'];
         this.filterByTopic(this.selectedTopicId);
       }
     });
+  }
+
+  filterPosts() {
+    let filtered = this.selectedTopicId === -1 
+      ? this.allPosts 
+      : this.allPosts.filter(post => post.topicId === this.selectedTopicId);
+    
+    if (this.searchTerm.trim()) {
+      const search = this.searchTerm.toLowerCase().trim();
+      filtered = filtered.filter(post => 
+        post.title.toLowerCase().includes(search) ||
+        post.content.toLowerCase().includes(search) ||
+        post.creator?.username.toLowerCase().includes(search) ||
+        this.getTopicName(post.topicId).toLowerCase().includes(search)
+      );
+    }
+    
+    this.filteredPosts = filtered;
   }
 
   filterByTopic(topicId: number) {
@@ -137,9 +179,7 @@ export class ListOfForumPostsComponent implements OnInit {
       sessionStorage.removeItem('userSelectedTopic');
       sessionStorage.removeItem('lastSelectedTopic');
     }
-    this.filteredPosts = topicId === -1 
-      ? this.posts 
-      : this.posts.filter(post => post.topicId === topicId);
+    this.filterPosts();
   }
 
   getTopicName(topicId: number): string {
