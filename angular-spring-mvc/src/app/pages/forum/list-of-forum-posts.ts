@@ -9,6 +9,7 @@ import { BricsForumTopicSelectorComponent } from '../../components/forum/brics-f
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-list-of-forum-posts',
@@ -20,12 +21,20 @@ import { MatInputModule } from '@angular/material/input';
     MatDividerModule,
     BricsForumTopicSelectorComponent,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule
   ],
   template: `
     <div class="filter-container">
       <app-brics-forum-topic-selector (ngModelChange)="filterByTopic($event)" [(ngModel)]="selectedTopicId">
       </app-brics-forum-topic-selector>
+
+      <button mat-raised-button 
+              color="primary" 
+              (click)="resetTopic()"
+              class="reset-button">
+        Reset Topic
+      </button>
 
       <mat-form-field appearance="outline" class="search-field">
         <mat-icon matPrefix>search</mat-icon>
@@ -100,6 +109,10 @@ import { MatInputModule } from '@angular/material/input';
       display: flex;
       align-items: flex-start;
       gap: 16px;
+    }
+    
+    .reset-button {
+      height: 56px;
     }
     
     .search-field {
@@ -193,5 +206,12 @@ export class ListOfForumPostsComponent implements OnInit {
       sessionStorage.setItem('lastSelectedTopic', this.selectedTopicId.toString());
     }
     this.router.navigate(['/forum/post', post.id]);
+  }
+
+  resetTopic() {
+    this.selectedTopicId = -1;
+    sessionStorage.removeItem('userSelectedTopic');
+    sessionStorage.removeItem('lastSelectedTopic');
+    this.filterPosts();
   }
 }
