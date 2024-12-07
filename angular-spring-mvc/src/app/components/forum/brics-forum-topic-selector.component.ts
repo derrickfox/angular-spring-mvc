@@ -3,18 +3,19 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgFor } from '@angular/common';
+import { FloatLabelType } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-brics-forum-topic-selector',
   template: `
-						<mat-form-field appearance="fill">
-						<mat-label>Topic</mat-label>
-						<mat-select [(value)]="selectedTopic" (selectionChange)="onSelectionChange($event)">
-								<mat-option *ngFor="let topic of topics" [value]="topic.id">
-										{{topic.name}}
-								</mat-option>
-						</mat-select>
-				</mat-form-field>
+					<mat-form-field appearance="outline" hideRequiredMarker>
+					<!-- <mat-label>Topic</mat-label> -->
+					<mat-select [(value)]="selectedTopic" (selectionChange)="onSelectionChange($event)">
+							<mat-option *ngFor="let topic of topics" [value]="topic.id">
+									{{ topic.name }}
+							</mat-option>
+					</mat-select>
+			</mat-form-field>
 		`,
   providers: [
     {

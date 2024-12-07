@@ -12,9 +12,9 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-list-of-forum-posts',
   standalone: true,
   imports: [
-    CommonModule, 
-    MatListModule, 
-    MatIconModule, 
+    CommonModule,
+    MatListModule,
+    MatIconModule,
     MatDividerModule,
     BricsForumTopicSelectorComponent,
     FormsModule
@@ -64,6 +64,9 @@ import { FormsModule } from '@angular/forms';
       padding: 16px 0;
       color: #666;
       grid-column: 1 / -1;
+      white-space: normal;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
     .post-title a {
       color: #2e7d32;
