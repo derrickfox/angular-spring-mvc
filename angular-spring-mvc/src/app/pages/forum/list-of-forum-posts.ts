@@ -5,16 +5,30 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { TEST_POSTS } from '../../test-models/forum/posts';
 import { Post } from '../../models/forum/post';
+import { BricsForumTopicSelectorComponent } from '../../components/forum/brics-forum-topic-selector.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-list-of-forum-posts',
   standalone: true,
-  imports: [CommonModule, MatListModule, MatIconModule, MatDividerModule],
+  imports: [
+    CommonModule, 
+    MatListModule, 
+    MatIconModule, 
+    MatDividerModule,
+    BricsForumTopicSelectorComponent,
+    FormsModule
+  ],
   template: `
+    <div class="filter-container">
+      <app-brics-forum-topic-selector (ngModelChange)="filterByTopic($event)" [(ngModel)]="selectedTopicId">
+      </app-brics-forum-topic-selector>
+    </div>
+
     <mat-list>
       <div mat-subheader>Forum Posts</div>
       
-      <mat-list-item *ngFor="let post of posts">
+      <mat-list-item *ngFor="let post of filteredPosts">
         <div class="post-wrapper">
           <div class="post-container">
             <div class="post-title">
@@ -67,10 +81,17 @@ import { Post } from '../../models/forum/post';
       height: auto !important;
       min-height: 120px !important;
     }
+    .filter-container {
+      padding: 16px;
+      display: flex;
+      align-items: flex-start;
+    }
   `]
 })
 export class ListOfForumPostsComponent {
   posts: Post[] = TEST_POSTS;
+  selectedTopicId: number = -1;
+  filteredPosts: Post[] = this.posts;
   topics = [
     { id: -1, name: '- Select One -' },
     { id: 1, name: 'GENERAL DISCUSSION' },
@@ -88,6 +109,12 @@ export class ListOfForumPostsComponent {
     { id: 13, name: 'Meta Study' },
     { id: 14, name: 'ProFoRMS' }
   ];
+
+  filterByTopic(topicId: number) {
+    this.filteredPosts = topicId === -1 
+      ? this.posts 
+      : this.posts.filter(post => post.topicId === topicId);
+  }
 
   getTopicName(topicId: number): string {
     const topic = this.topics.find(t => t.id === topicId);
