@@ -15,7 +15,6 @@ import { BricsLeftNavComponent } from './brics-left-nav.component';
   ],
   template: `
     <div class="page-container">
-      <div>DEBUG: Page Router Component Loaded</div>
       <app-brics-header></app-brics-header>
       <app-brics-left-nav>
         <router-outlet></router-outlet>
