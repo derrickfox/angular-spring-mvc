@@ -17,11 +17,6 @@ import { MatIconModule } from '@angular/material/icon';
           <mat-panel-title>
             {{ panel.title }}
           </mat-panel-title>
-          <mat-panel-description>
-            <mat-icon class="caret-icon" [class.expanded]="panel.isExpanded">
-              chevron_right
-            </mat-icon>
-          </mat-panel-description>
         </mat-expansion-panel-header>
         {{ panel.content }}
       </mat-expansion-panel>
@@ -55,15 +50,6 @@ import { MatIconModule } from '@angular/material/icon';
       .mat-expansion-panel-header-description {
         justify-content: flex-end;
         margin-right: 0;
-      }
-
-      .caret-icon {
-        transition: transform 200ms ease-in-out;
-        color: #666;
-      }
-
-      .caret-icon.expanded {
-        transform: rotate(90deg);
       }
     }
   `]
