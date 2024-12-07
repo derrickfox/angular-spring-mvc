@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BricsExpansionPanelComponent } from '../components/brics-expansion-panel.component';
 
 @Component({
   selector: 'app-welcome-page',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BricsExpansionPanelComponent],
   template: `
     <div class="welcome-container">
-      <div>DEBUG: Welcome Page Component Loaded</div>
       <h1>Welcome to the BRICS Demo</h1>
+      <app-brics-expansion-panel [panels]="expansionPanels">
+      </app-brics-expansion-panel>
     </div>
   `,
   styles: [`
@@ -28,7 +30,21 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class WelcomePageComponent {
-  constructor() {
-    console.log('WelcomePageComponent initialized');
-  }
+  expansionPanels = [
+    {
+      title: 'Panel 1',
+      content: 'Test content for Panel 1',
+      isExpanded: true
+    },
+    {
+      title: 'Panel 2',
+      content: 'Test content for Panel 2',
+      isExpanded: false
+    },
+    {
+      title: 'Panel 3',
+      content: 'Test content for Panel 3',
+      isExpanded: false
+    }
+  ];
 }
