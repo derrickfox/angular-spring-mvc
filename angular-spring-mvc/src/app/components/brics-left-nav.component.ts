@@ -4,11 +4,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-brics-left-nav',
   standalone: true,
-  imports: [MatSidenavModule, MatListModule, MatIconModule, CommonModule],
+  imports: [MatSidenavModule, MatListModule, MatIconModule, CommonModule, RouterModule],
   animations: [
     trigger('expandCollapse', [
       state('void', style({
@@ -26,7 +27,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     <mat-sidenav-container class="sidenav-container">
       <mat-sidenav mode="side" opened class="sidenav">
         <mat-nav-list>
-          <a mat-list-item>
+          <a mat-list-item routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <mat-icon matListItemIcon>home</mat-icon>
             <span matListItemTitle>Home</span>
           </a>
@@ -40,8 +41,11 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
             </mat-icon>
           </div>
           <div *ngIf="expandedSection === 'dashboard'" @expandCollapse class="sub-level">
-            <a mat-list-item>
-              <span matListItemTitle>List Posts</span>
+            <a mat-list-item routerLink="/table" routerLinkActive="active">
+              <span matListItemTitle>Data Table</span>
+            </a>
+            <a mat-list-item routerLink="/async" routerLinkActive="active">
+              <span matListItemTitle>Async Demo</span>
             </a>
           </div>
           <div class="nav-item" [class.active]="expandedSection === 'settings'">
@@ -113,10 +117,19 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       padding-left: 32px;
       overflow: hidden;
     }
+
+    .active {
+      background-color: rgba(0, 120, 212, 0.1);
+      color: #0078d4;
+    }
+    
+    .active mat-icon {
+      color: #0078d4;
+    }
   `]
 })
 export class BricsLeftNavComponent {
-  expandedSection: string | null = 'dashboard';
+  expandedSection: string | null = null;
 
   toggle(section: string): void {
     this.expandedSection = this.expandedSection === section ? null : section;

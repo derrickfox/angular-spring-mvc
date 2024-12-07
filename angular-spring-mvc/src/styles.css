@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #f3f3f3; }
+html, body { height: 100%; margin: 0; padding: 0; background-color: #f5f5f5; }
+body { font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Azure theme custom color overrides if needed */
 .mat-toolbar.mat-primary {
@@ -34,4 +34,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-
 
 .dt-search {
   float: right;
+}
+
+app-root {
+  display: block;
+  height: 100%;
+}
+
+.debug {
+  background-color: yellow;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid red;
 }

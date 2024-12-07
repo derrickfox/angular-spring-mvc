@@ -1,24 +1,13 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { BricsHeaderComponent } from './components/brics-header.component';
-import { BricsLeftNavComponent } from './components/brics-left-nav.component';
-import { BricsTableComponent } from './components/brics-table.component';
-import { BricsButtonDropdownComponent } from './components/brics-button-dropdown';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    CommonModule, 
-    BricsHeaderComponent,
-    BricsLeftNavComponent,
-    BricsTableComponent
-  ],
+  imports: [CommonModule, RouterModule],
   template: `
-    <app-brics-header></app-brics-header>
-    <app-brics-left-nav>
-      <app-brics-table></app-brics-table>
-    </app-brics-left-nav>
+    <router-outlet></router-outlet>
   `,
   styles: [`
     :host {
@@ -27,4 +16,9 @@ import { BricsButtonDropdownComponent } from './components/brics-button-dropdown
     }
   `]
 })
-export class AppComponent {}
+export class AppComponent {
+  constructor() {
+    console.log('AppComponent initialized');
+  }
+}
+ 
