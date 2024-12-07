@@ -47,6 +47,9 @@ import { RouterModule } from '@angular/router';
             <a mat-list-item routerLink="/async" routerLinkActive="active">
               <span matListItemTitle>Async Demo</span>
             </a>
+            <a mat-list-item routerLink="/forum/posts" routerLinkActive="active">
+              <span matListItemTitle>All Posts</span>
+            </a>
           </div>
           <div class="nav-item" [class.active]="expandedSection === 'settings'">
             <a mat-list-item (click)="toggle('settings')">
