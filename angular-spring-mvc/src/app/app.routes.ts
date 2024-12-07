@@ -4,6 +4,7 @@ import { WelcomePageComponent } from './pages/forum/welcome-page.component';
 import { BricsTableComponent } from './components/brics-table.component';
 import { AsyncDemoComponent } from './components/async-demo.component';
 import { ListOfForumPostsComponent } from './pages/forum/list-of-forum-posts';
+import { ViewForumPostComponent } from './pages/forum/view-forum-post.component';
 
 export const routes: Routes = [
   {
@@ -25,6 +26,10 @@ export const routes: Routes = [
       {
         path: 'forum/posts',
         component: ListOfForumPostsComponent
+      },
+      {
+        path: 'forum/post/:id',
+        component: ViewForumPostComponent
       }
     ]
   }
