@@ -5,7 +5,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ActivatedRoute } from '@angular/router';
 import { Post } from '../../models/forum/post';
 import { TEST_POSTS } from '../../test-models/forum/posts';
-import { BricsBackToListButtonComponent } from '../../components/brics-back-to-list-button.component';
+import { BricsBackToListButtonComponent } from '../../components/common/brics-back-to-list-button.component';
 
 @Component({
   selector: 'app-view-forum-post',
