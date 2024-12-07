@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BricsHeaderComponent } from './components/brics-header.component';
 import { BricsLeftNavComponent } from './components/brics-left-nav.component';
 import { BricsTableComponent } from './components/brics-table.component';
+import { BricsButtonDropdownComponent } from './components/brics-button-dropdown';
 
 @Component({
   selector: 'app-root',
