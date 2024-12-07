@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -92,7 +92,7 @@ import { Router, ActivatedRoute } from '@angular/router';
     }
   `]
 })
-export class ListOfForumPostsComponent {
+export class ListOfForumPostsComponent implements OnInit {
   posts: Post[] = TEST_POSTS;
   selectedTopicId: number = -1;
   filteredPosts: Post[] = this.posts;
@@ -117,16 +117,26 @@ export class ListOfForumPostsComponent {
   constructor(
     private router: Router,
     private route: ActivatedRoute
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if (params['topic']) {
-        this.selectedTopicId = Number(params['topic']);
+        this.selectedTopicId = +params['topic'];
         this.filterByTopic(this.selectedTopicId);
       }
     });
   }
 
   filterByTopic(topicId: number) {
+    this.selectedTopicId = topicId;
+    if (topicId !== -1) {
+      sessionStorage.setItem('userSelectedTopic', 'true');
+      sessionStorage.setItem('lastSelectedTopic', topicId.toString());
+    } else {
+      sessionStorage.removeItem('userSelectedTopic');
+      sessionStorage.removeItem('lastSelectedTopic');
+    }
     this.filteredPosts = topicId === -1 
       ? this.posts 
       : this.posts.filter(post => post.topicId === topicId);
@@ -138,6 +148,10 @@ export class ListOfForumPostsComponent {
   }
 
   viewPost(post: Post) {
+    if (this.selectedTopicId && this.selectedTopicId !== -1) {
+      sessionStorage.setItem('userSelectedTopic', 'true');
+      sessionStorage.setItem('lastSelectedTopic', this.selectedTopicId.toString());
+    }
     this.router.navigate(['/forum/post', post.id]);
   }
 }

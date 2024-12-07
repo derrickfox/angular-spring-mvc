@@ -28,9 +28,17 @@ export class BricsBackToListButtonComponent {
   constructor(private router: Router) {}
 
   navigateBack() {
-    // Navigate to list with query params for topic selection
-    this.router.navigate(['/forum'], {
-      queryParams: { topic: this.topicId }
-    });
+    // Only use topic if user explicitly selected one
+    const userSelectedTopic = sessionStorage.getItem('userSelectedTopic');
+    const lastSelectedTopic = sessionStorage.getItem('lastSelectedTopic');
+    
+    const queryParams = (userSelectedTopic && lastSelectedTopic) ? { topic: lastSelectedTopic } : {};
+    
+    // Clean up
+    if (!userSelectedTopic) {
+      sessionStorage.removeItem('lastSelectedTopic');
+    }
+    
+    this.router.navigate(['/forum'], { queryParams });
   }
 }
