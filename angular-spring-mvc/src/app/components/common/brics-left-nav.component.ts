@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { trigger, state, style, transition, animate } from '@angular/animations';
 import { RouterModule } from '@angular/router';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { NavConfig } from '../../models/forum/forum-nav-config';
+import { navigationConfig } from '../../test-configs/forum/navigation.config';
 
 @Component({
   selector: 'app-brics-left-nav',
@@ -23,115 +25,88 @@ import { RouterModule } from '@angular/router';
       transition('void <=> *', animate('200ms ease-in-out'))
     ])
   ],
+  styles: [`
+    .nav-item {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    
+    .caret-icon {
+      position: absolute;
+      right: 16px;
+      transition: transform 0.2s ease;
+    }
+    
+    .caret-icon.expanded {
+      transform: rotate(90deg);
+    }
+    
+    .sidenav-container {
+      height: 100vh;
+    }
+    
+    .sidenav {
+      min-height: 100vh;
+    }
+    
+    .nav-children {
+      padding-left: 24px;
+    }
+    
+    .nav-child-item {
+      padding-left: 32px;
+    }
+  `],
   template: `
     <mat-sidenav-container class="sidenav-container">
       <mat-sidenav mode="side" opened class="sidenav">
         <mat-nav-list>
-          <a mat-list-item routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-            <mat-icon matListItemIcon>home</mat-icon>
-            <span matListItemTitle>Home</span>
-          </a>
-          <div class="nav-item" [class.active]="expandedSection === 'dashboard'">
-            <a mat-list-item (click)="toggle('dashboard')">
-              <mat-icon matListItemIcon>dashboard</mat-icon>
-              <span matListItemTitle>Dashboard</span>
+          <ng-container *ngFor="let item of config.items">
+            <!-- Single level item -->
+            <a mat-list-item 
+               *ngIf="!item.children"
+               [routerLink]="item.route"
+               routerLinkActive="active"
+               [routerLinkActiveOptions]="{exact: item.route === '/'}">
+              <mat-icon matListItemIcon>{{item.icon || 'chevron_right'}}</mat-icon>
+              <span matListItemTitle>{{item.label}}</span>
             </a>
-            <mat-icon class="caret-icon" [ngClass]="{'expanded': expandedSection === 'dashboard'}">
-              {{ expandedSection === 'dashboard' ? 'expand_more' : 'chevron_right' }}
-            </mat-icon>
-          </div>
-          <div *ngIf="expandedSection === 'dashboard'" @expandCollapse class="sub-level">
-            <a mat-list-item routerLink="/table" routerLinkActive="active">
-              <span matListItemTitle>Data Table</span>
-            </a>
-            <a mat-list-item routerLink="/async" routerLinkActive="active">
-              <span matListItemTitle>Async Demo</span>
-            </a>
-            <a mat-list-item routerLink="/forum/posts" routerLinkActive="active">
-              <span matListItemTitle>All Posts</span>
-            </a>
-          </div>
-          <div class="nav-item" [class.active]="expandedSection === 'settings'">
-            <a mat-list-item (click)="toggle('settings')">
-              <mat-icon matListItemIcon>settings</mat-icon>
-              <span matListItemTitle>Settings</span>
-            </a>
-            <mat-icon class="caret-icon" [ngClass]="{'expanded': expandedSection === 'settings'}">
-              {{ expandedSection === 'settings' ? 'expand_more' : 'chevron_right' }}
-            </mat-icon>
-          </div>
-          <div *ngIf="expandedSection === 'settings'" @expandCollapse class="sub-level">
-            <a mat-list-item>
-              <span matListItemTitle>Profile</span>
-            </a>
-          </div>
+
+            <!-- Parent item with children -->
+            <div *ngIf="item.children" class="nav-item" [class.active]="expandedSection === item.label">
+              <a mat-list-item (click)="toggle(item.label)">
+                <mat-icon matListItemIcon>{{item.icon || 'chevron_right'}}</mat-icon>
+                <span matListItemTitle>{{item.label}}</span>
+              </a>
+              <mat-icon class="caret-icon" [ngClass]="{'expanded': expandedSection === item.label}">
+                chevron_right
+              </mat-icon>
+            </div>
+
+            <!-- Children -->
+            <div *ngIf="item.children && expandedSection === item.label" 
+                 @expandCollapse 
+                 class="sub-level nav-children">
+              <a mat-list-item 
+                 *ngFor="let child of item.children"
+                 [routerLink]="child.route"
+                 routerLinkActive="active"
+                 class="nav-child-item">
+                <span matListItemTitle>{{child.label}}</span>
+              </a>
+            </div>
+          </ng-container>
         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content>
         <ng-content></ng-content>
       </mat-sidenav-content>
     </mat-sidenav-container>
-  `,
-  styles: [`
-    .sidenav-container {
-      height: calc(100vh - 64px);
-    }
-    
-    .sidenav {
-      width: 250px;
-      background-color: #f5f5f5;
-    }
-    
-    mat-nav-list {
-      padding-top: 16px;
-    }
-    
-    .mat-icon {
-      margin-right: 8px;
-      color: #666;
-    }
-
-    .caret-icon {
-      position: absolute;
-      right: 16px;
-      color: #666;
-      transition: transform 200ms ease-in-out;
-    }
-
-    .caret-icon.expanded {
-      transform: rotate(0deg);
-    }
-
-    .nav-item {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-
-    .nav-item.active {
-      background-color: rgba(0, 0, 0, 0.04);
-    }
-
-    .nav-item a[mat-list-item] {
-      flex: 1;
-    }
-
-    .sub-level {
-      padding-left: 32px;
-      overflow: hidden;
-    }
-
-    .active {
-      background-color: rgba(0, 120, 212, 0.1);
-      color: #0078d4;
-    }
-    
-    .active mat-icon {
-      color: #0078d4;
-    }
-  `]
+  `
 })
 export class BricsLeftNavComponent {
+  @Input() config: NavConfig = navigationConfig;
   expandedSection: string | null = null;
 
   toggle(section: string): void {
