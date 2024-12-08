@@ -14,17 +14,17 @@
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2022",
+    "module": "es2022",
     "useDefineForClassFields": false,
     "lib": [
       "ES2022",
       "dom"
     ],
     "allowJs": true,
-    "types": ["jquery", "datatables.net"]
+    "types": ["jquery", "datatables.net", "jasmine"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

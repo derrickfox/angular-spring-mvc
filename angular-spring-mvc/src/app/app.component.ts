@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class AppComponent {
+  title = 'angular-spring-mvc';
   constructor() {
     console.log('AppComponent initialized');
   }
