@@ -6,7 +6,7 @@
     "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test --watch=false",
+    "test": "ng test --code-coverage",
     "serve:ssr:angular-spring-mvc": "node dist/angular-spring-mvc/server/server.mjs"
   },
   "private": true,
