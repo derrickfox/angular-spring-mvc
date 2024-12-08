@@ -11,6 +11,10 @@ export const navigationConfig: NavConfig = {
       label: 'Dashboard',
       icon: 'dashboard',
       children: [
+								{
+										label: 'All Posts',
+										route: '/forum/posts'
+								},
         {
           label: 'Data Table',
           route: '/table'
@@ -18,10 +22,6 @@ export const navigationConfig: NavConfig = {
         {
           label: 'Async Demo',
           route: '/async'
-        },
-        {
-          label: 'All Posts',
-          route: '/forum/posts'
         }
       ]
     },

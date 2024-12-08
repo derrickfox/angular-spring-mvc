@@ -48,6 +48,7 @@ import { navigationConfig } from '../../test-configs/forum/navigation.config';
     
     .sidenav {
       min-height: 100vh;
+      width: 240px;
     }
     
     .nav-children {
