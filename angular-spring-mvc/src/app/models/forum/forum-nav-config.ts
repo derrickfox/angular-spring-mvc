@@ -1,11 +1,11 @@
 export interface NavConfig {
-	items: {
-			label: string;
-			route?: string;
-			icon?: string;
-			children?: {
-					label: string;
-					route: string;
-			}[];
-	}[];
+	items: NavItem[];
+}
+
+export interface NavItem {
+	label: string;
+	route?: string;
+	icon?: string;
+	children?: NavItem[];
+	level?: number;
 }
