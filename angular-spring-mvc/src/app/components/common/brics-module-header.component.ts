@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { BricsLeftNavComponent } from './brics-left-nav.component';
 
 interface ModuleTab {
@@ -16,15 +16,17 @@ interface ModuleTab {
   imports: [CommonModule, MatTabsModule, RouterModule, BricsLeftNavComponent],
   template: `
     <div class="module-container">
-      <mat-tab-group (selectedTabChange)="onTabChange($event)">
+      <mat-tab-group [selectedIndex]="getCurrentTabIndex()" (selectedTabChange)="onTabChange($event)">
         <mat-tab *ngFor="let tab of tabs" [label]="tab.label">
           <div class="tab-content">
-            <app-brics-left-nav *ngIf="tab.showNav">
-              <router-outlet></router-outlet>
-            </app-brics-left-nav>
-            <div *ngIf="!tab.showNav" class="no-nav-content">
-              <router-outlet></router-outlet>
-            </div>
+            <ng-container *ngIf="isCurrentRoute(tab.route)">
+              <app-brics-left-nav *ngIf="tab.showNav">
+                <router-outlet></router-outlet>
+              </app-brics-left-nav>
+              <div *ngIf="!tab.showNav" class="no-nav-content">
+                <router-outlet></router-outlet>
+              </div>
+            </ng-container>
           </div>
         </mat-tab>
       </mat-tab-group>
@@ -62,7 +64,19 @@ export class BricsModuleHeaderComponent {
     { label: 'Meta Study', route: '/meta-study' }
   ];
 
+  constructor(private router: Router) {}
+
+  getCurrentTabIndex(): number {
+    const currentRoute = this.router.url.split('/')[1]; // Get the first segment
+    return this.tabs.findIndex(tab => tab.route.includes(currentRoute)) || 0;
+  }
+
+  isCurrentRoute(route: string): boolean {
+    return this.router.url.startsWith(route);
+  }
+
   onTabChange(event: any) {
-    // Handle tab change if needed
+    const selectedTab = this.tabs[event.index];
+    this.router.navigate([selectedTab.route]);
   }
 }
