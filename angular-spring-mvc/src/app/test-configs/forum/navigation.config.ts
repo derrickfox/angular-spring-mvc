@@ -18,6 +18,10 @@ export const navigationConfig: NavConfig = {
         {
           label: 'Welcome',
           route: '/forum/welcome'
+        },
+        {
+          label: 'Async Demo',
+          route: '/forum/async-demo'
         }
       ]
     },
