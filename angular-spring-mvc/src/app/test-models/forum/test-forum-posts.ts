@@ -1,5 +1,5 @@
-import { Post } from '../../modules/forum/models/post';
-import { testForumUsers } from './forum-users';
+import { Post } from '../../modules/forum/models/post.model';
+import { testForumUsers } from './test-forum-users';
 
 export const TEST_POSTS: Post[] = [
   new Post(

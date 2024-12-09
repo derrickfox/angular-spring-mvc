@@ -1,4 +1,4 @@
-import { NavConfig } from '../forum/models/forum-nav-config';
+import { NavConfig } from '../../../models/left-nav-config.model';
 
 export const forumNavConfig: NavConfig = {
   items: [

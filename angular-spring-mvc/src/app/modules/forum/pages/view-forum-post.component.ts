@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { ActivatedRoute } from '@angular/router';
-import { Post } from '../../../modules/forum/models/post';
-import { TEST_POSTS } from '../../../test-models/forum/posts';
+import { Post } from '../models/post.model';
+import { TEST_POSTS } from '../../../test-models/forum/test-forum-posts';
 import { BricsBackToListButtonComponent } from '../../../components/common/brics-back-to-list-button.component';
 
 @Component({

@@ -5,8 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { NavConfig, NavItem } from '../../modules/forum/models/forum-nav-config';
-import { navigationConfig } from '../../test-configs/forum/navigation.config';
+import { NavConfig, NavItem } from '../../models/left-nav-config.model';
+import { navigationConfig } from '../../configurations/left-navigation.config';
 
 @Component({
   selector: 'app-brics-left-nav',
