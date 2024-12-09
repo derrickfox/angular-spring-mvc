@@ -25,6 +25,12 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule
   ],
   template: `
+    <div class="welcome-message">
+      <h3>Forum</h3>
+      <p>Welcome to the Forum, a place for users to discuss and share ideas. You can post content and comment on other posts.
+        The BRICS Operations team will be moderating the forum for any inappropriate content.
+      </p>
+    </div>
     <div class="filter-container">
       <app-brics-forum-topic-selector (ngModelChange)="filterByTopic($event)" [(ngModel)]="selectedTopicId">
       </app-brics-forum-topic-selector>
@@ -104,7 +110,7 @@ import { MatButtonModule } from '@angular/material/button';
       height: auto !important;
       min-height: 120px !important;
     }
-    .filter-container {
+    .filter-container, .welcome-message {
       padding: 16px;
       display: flex;
       align-items: flex-start;
@@ -123,6 +129,20 @@ import { MatButtonModule } from '@angular/material/button';
     mat-icon {
       color: #666;
       margin-right: 8px;
+    }
+    .welcome-message h3 {
+      display: block;
+      margin-bottom: 16px;
+    }
+    .welcome-message p {
+      display: block;
+      margin-top: 0;
+      line-height: 1.5;
+    }
+    .welcome-message {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
   `]
 })
