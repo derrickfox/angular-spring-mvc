@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BricsHeaderComponent } from './brics-header.component';
-import { BricsLeftNavComponent } from './brics-left-nav.component';
+import { BricsModuleHeaderComponent } from './brics-module-header.component';
 
 @Component({
   selector: 'app-brics-page-router',
@@ -11,26 +11,21 @@ import { BricsLeftNavComponent } from './brics-left-nav.component';
     CommonModule,
     RouterModule,
     BricsHeaderComponent,
-    BricsLeftNavComponent
+    BricsModuleHeaderComponent
   ],
   template: `
     <div class="page-container">
       <app-brics-header></app-brics-header>
-      <app-brics-left-nav>
-        <router-outlet></router-outlet>
-      </app-brics-left-nav>
+      <app-brics-module-header></app-brics-module-header>
     </div>
   `,
   styles: [`
     .page-container {
-      display: block;
-      height: 100%;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
       background-color: #f5f5f5;
     }
   `]
 })
-export class BricsPageRouterComponent {
-  constructor() {
-    console.log('BricsPageRouterComponent initialized');
-  }
-}
+export class BricsPageRouterComponent {}

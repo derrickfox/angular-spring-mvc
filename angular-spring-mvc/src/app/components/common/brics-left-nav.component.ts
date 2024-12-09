@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { NavConfig, NavItem } from '../../models/forum/forum-nav-config';
+import { NavConfig, NavItem } from '../../modules/forum/models/forum-nav-config';
 import { navigationConfig } from '../../test-configs/forum/navigation.config';
 
 @Component({

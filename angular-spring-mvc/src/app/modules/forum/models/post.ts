@@ -1,4 +1,4 @@
-import { ForumUser } from '../forum/forum-user';
+import { ForumUser } from './forum-user';
 
 export class Post {
     constructor(

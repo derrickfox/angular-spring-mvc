@@ -1,4 +1,4 @@
-import { ForumUser } from '../../models/forum/forum-user';
+import { ForumUser } from '../../modules/forum/models/forum-user';
 
 export const testForumUsers: ForumUser[] = [
     {

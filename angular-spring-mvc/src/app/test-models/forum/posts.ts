@@ -1,4 +1,4 @@
-import { Post } from '../../models/forum/post';
+import { Post } from '../../modules/forum/models/post';
 import { testForumUsers } from './forum-users';
 
 export const TEST_POSTS: Post[] = [
