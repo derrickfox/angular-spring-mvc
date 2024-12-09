@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BricsExpansionPanelComponent } from '../../components/common/brics-expansion-panel.component';
+import { BricsExpansionPanelComponent } from '../components/common/brics-expansion-panel.component';
 
 @Component({
   selector: 'app-welcome-page',
