@@ -65,7 +65,7 @@ export class ViewForumPostComponent {
   // Reusing the topics array from the list component
   topics = [
     { id: -1, name: '- Select One -' },
-    { id: 1, name: 'GENERAL DISCUSSION' },
+    { id: 1, name: 'General Discussion' },
     // ... rest of topics
   ];
 
@@ -78,6 +78,6 @@ export class ViewForumPostComponent {
 
   getTopicName(topicId?: number): string {
     const topic = this.topics.find(t => t.id === topicId);
-    return topic?.name || 'GENERAL DISCUSSION';
+    return topic?.name || 'General Discussion';
   }
 }

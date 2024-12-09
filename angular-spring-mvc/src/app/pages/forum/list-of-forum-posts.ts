@@ -132,7 +132,7 @@ export class ListOfForumPostsComponent implements OnInit {
   filteredPosts: Post[] = this.posts;
   topics = [
     { id: -1, name: '- Select One -' },
-    { id: 1, name: 'GENERAL DISCUSSION' },
+    { id: 1, name: 'General Discussion' },
     { id: 2, name: 'Query Tool' },
     { id: 3, name: 'Data Repository' },
     { id: 4, name: 'Data Repository: Imaging Submission' },
@@ -197,7 +197,7 @@ export class ListOfForumPostsComponent implements OnInit {
 
   getTopicName(topicId: number): string {
     const topic = this.topics.find(t => t.id === topicId);
-    return topic?.name || 'GENERAL DISCUSSION';
+    return topic?.name || 'General Discussion';
   }
 
   viewPost(post: Post) {
