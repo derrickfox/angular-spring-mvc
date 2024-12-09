@@ -73,11 +73,13 @@ import { navigationConfig } from '../../test-configs/forum/navigation.config';
     .caret-icon {
       position: absolute;
       right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
       transition: transform 0.2s ease;
     }
     
     .caret-icon.expanded {
-      transform: rotate(90deg);
+      transform: translateY(-50%) rotate(90deg);
     }
     
     .nav-children {
@@ -86,6 +88,15 @@ import { navigationConfig } from '../../test-configs/forum/navigation.config';
 
     .mat-list-item {
       height: 48px;
+    }
+
+    .sidenav {
+      min-width: 240px;
+      width: auto;
+    }
+
+    .sidenav-container {
+      height: 100vh;
     }
   `],
   animations: [

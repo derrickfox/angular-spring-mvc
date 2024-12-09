@@ -37,7 +37,7 @@ export const navigationConfig: NavConfig = {
     },
     {
       label: 'Data Management',
-      icon: 'database',
+      icon: 'storage',
       children: [
         {
           label: 'Repository',
