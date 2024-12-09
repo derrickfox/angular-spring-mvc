@@ -98,6 +98,11 @@ import { navigationConfig } from '../../test-configs/forum/navigation.config';
     .sidenav-container {
       height: 100vh;
     }
+
+    .mat-drawer-content {
+      padding-left: 45px;
+      padding-right: 45px;
+    }
   `],
   animations: [
     trigger('expandCollapse', [
