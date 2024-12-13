@@ -1,12 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { NavConfig, NavItem } from '../../models/left-nav-config.model';
-import { navigationConfig } from '../../configurations/left-navigation.config';
+//import { navigationConfig } from '../../configurations/left-navigation.config';
+import { forumNavConfig } from '../../modules/forum/configurations/left-nav.forum.config';
+import { metaStudyNavConfig } from '../../modules/meta-study/configurations/left-nav.forum.config';
+import { dataRepositoryNavConfig } from '../../modules/repository/configurations/left-nav.forum.config';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-brics-left-nav',
@@ -118,9 +122,40 @@ import { navigationConfig } from '../../configurations/left-navigation.config';
     ])
   ]
 })
-export class BricsLeftNavComponent {
-  @Input() config: NavConfig = navigationConfig;
+export class BricsLeftNavComponent implements OnInit {
+  @Input() config!: NavConfig;
   expandedSections: Set<string> = new Set();
+
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.updateNavConfig();
+    });
+
+    // Set initial config
+    this.updateNavConfig();
+  }
+
+  private updateNavConfig() {
+    const currentRoute = this.router.url.split('/')[1];
+    
+    switch (currentRoute) {
+      case 'forum':
+        this.config = forumNavConfig;
+        break;
+      case 'meta-study':
+        this.config = metaStudyNavConfig;
+        break;
+      case 'repository':
+        this.config = dataRepositoryNavConfig;
+        break;
+      default:
+        this.config = forumNavConfig; // fallback to forum config
+    }
+  }
 
   isExpanded(section: string): boolean {
     return this.expandedSections.has(section);
