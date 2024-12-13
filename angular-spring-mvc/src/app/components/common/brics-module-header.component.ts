@@ -3,11 +3,16 @@ import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule, Router } from '@angular/router';
 import { BricsLeftNavComponent } from './brics-left-nav.component';
+import { forumNavConfig } from '../../modules/forum/configurations/left-nav.forum.config';
+import { metaStudyNavConfig } from '../../modules/meta-study/configurations/left-nav.forum.config';
+import { dataRepositoryNavConfig } from '../../modules/repository/configurations/left-nav.forum.config';
+import { NavConfig } from '../../models/left-nav-config.model';
 
 interface ModuleTab {
   label: string;
   route: string;
   showNav?: boolean;
+  navConfig?: NavConfig;
 }
 
 @Component({
@@ -20,7 +25,7 @@ interface ModuleTab {
         <mat-tab *ngFor="let tab of tabs" [label]="tab.label">
           <div class="tab-content">
             <ng-container *ngIf="isCurrentRoute(tab.route)">
-              <app-brics-left-nav *ngIf="tab.showNav">
+              <app-brics-left-nav *ngIf="tab.showNav" [config]="tab.navConfig!">
                 <router-outlet></router-outlet>
               </app-brics-left-nav>
               <div *ngIf="!tab.showNav" class="no-nav-content">
@@ -59,9 +64,24 @@ interface ModuleTab {
 })
 export class BricsModuleHeaderComponent {
   @Input() tabs: ModuleTab[] = [
-    { label: 'Forum', route: '/forum', showNav: true },
-    { label: 'Data Repository', route: '/repository' },
-    { label: 'Meta Study', route: '/meta-study' }
+    { 
+      label: 'Forum', 
+      route: '/forum', 
+      showNav: true,
+      navConfig: forumNavConfig 
+    },
+    { 
+      label: 'Data Repository', 
+      route: '/repository',
+      showNav: true,
+      navConfig: dataRepositoryNavConfig 
+    },
+    { 
+      label: 'Meta Study', 
+      route: '/meta-study',
+      showNav: true,
+      navConfig: metaStudyNavConfig 
+    }
   ];
 
   constructor(private router: Router) {}

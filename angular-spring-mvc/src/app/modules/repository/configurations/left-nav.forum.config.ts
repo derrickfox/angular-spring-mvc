@@ -1,6 +1,6 @@
 import { NavConfig } from '../../../models/left-nav-config.model';
 
-export const forumNavConfig: NavConfig = {
+export const dataRepositoryNavConfig: NavConfig = {
   items: [
     {
       label: 'Home',
@@ -8,8 +8,8 @@ export const forumNavConfig: NavConfig = {
       route: '/forum'
     },
     {
-      label: 'Forum',
-      icon: 'forum',
+      label: 'Data Repository',
+      icon: 'storage',
       children: [
         {
           label: 'All Posts',

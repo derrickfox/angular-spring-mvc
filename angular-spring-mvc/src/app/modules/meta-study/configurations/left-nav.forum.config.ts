@@ -1,6 +1,6 @@
 import { NavConfig } from '../../../models/left-nav-config.model';
 
-export const forumNavConfig: NavConfig = {
+export const metaStudyNavConfig: NavConfig = {
   items: [
     {
       label: 'Home',
@@ -8,7 +8,7 @@ export const forumNavConfig: NavConfig = {
       route: '/forum'
     },
     {
-      label: 'Forum',
+      label: 'Meta Study',
       icon: 'forum',
       children: [
         {
@@ -26,12 +26,12 @@ export const forumNavConfig: NavConfig = {
       ]
     },
     {
-      label: 'Repository',
+      label: 'Forum',
       icon: 'storage',
       route: '/repository'
     },
     {
-      label: 'Meta Study',
+      label: 'Data Repository',
       icon: 'science',
       route: '/meta-study'
     }
